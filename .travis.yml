@@ -1,0 +1,23 @@
+language: minimal
+
+env:
+  - TAG=mkkhedawat/node-sshd:1.0.0 TAG_LATEST=mkkhedawat/node-sshd:latest
+  
+services:
+  - docker
+  
+script:
+  - docker build -t $TAG .
+  
+after_script:
+  - |
+    if [ $TRAVIS_PULL_REQUEST == "false" ]; then
+      echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin && \
+      docker push $TAG && \
+      docker tag $TAG $TAG_LATEST && \
+      docker push $TAG_LATEST;  \
+    fi
+    
+branches:
+  only:
+    - master
