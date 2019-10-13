@@ -17,7 +17,7 @@ ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
 
 # install yum packages
 RUN yum -y update
-RUN yum -y install wget openssh-server
+RUN yum -y install wget vi openssh-server
 
 # install node-utilities
 RUN wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v$NVM_VERSION/install.sh  | bash
